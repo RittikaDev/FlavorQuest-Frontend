@@ -61,7 +61,7 @@ const NavBar = () => {
             (currentUser as DecodedUser)?.role === "USER"
               ? "/user/profile"
               : (currentUser as DecodedUser)?.role === "PREMIUM_USER"
-              ? "/user/profile"
+              ? "/profile"
               : (currentUser as DecodedUser)?.role === "ADMIN"
               ? "/dashboard/profile"
               : ""

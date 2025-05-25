@@ -81,7 +81,6 @@ const ManagePost = () => {
     try {
       await deleteUser(postId).unwrap();
       toast.success("Post deleted successfully!");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Failed to delete post.");
       console.log(error);
