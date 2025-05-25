@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* globals.css */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.slim-scroll::-webkit-scrollbar {
+  width: 3px; /* Width of the scrollbar */
+  height: 5px;
+}
+
+.slim-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+.slim-scroll::-webkit-scrollbar-thumb {
+  background-color: #1BB68A; /* Thumb color */
+  border-radius: 1px; /* Rounded corners */
+}
+
+/* Optional: Hide scrollbar when inactive */
+.slim-scroll::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+
+/* antd pagination for table  */
+
+/* Change the color of the pagination items */
+.custom-pagination .ant-pagination-item {
+  color: #dd6c3b; /* Default item color */
+}
+
+/* Change color of previous and next buttons */
+.custom-pagination .ant-pagination-prev,
+.custom-pagination .ant-pagination-next {
+  color: #dd6c3b;
+}
+
+/* Light #1F6306 background when hovering */
+.custom-pagination .ant-pagination-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Custom #1F6306 active item */
+.custom-pagination .ant-pagination-item-active {
+  background-color: #dd6c3b !important; /* Custom #1F6306 background */
+  border-color: #dd6c3b !important;
+  color: white !important; /* Apply white text color to active item */
+}
+
+/* Optional: For the active item when it's selected */
+.custom-pagination .ant-pagination-item-active a {
+  color: white !important; /* Ensure the text inside the anchor tag is white */
+}

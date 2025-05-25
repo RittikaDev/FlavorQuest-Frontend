@@ -1,0 +1,5 @@
+.pagination-container .ant-pagination-options {
+    display: flex !important;
+    visibility: visible !important;
+  }
+  
