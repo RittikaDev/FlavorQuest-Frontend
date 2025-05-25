@@ -21,7 +21,9 @@ export default function FriendRequests() {
 
 	const handleAccept = async (id: string) => {
 		try {
-			await respondToRequest({ requestId: id, status: "ACCEPTED" });
+			const res = await respondToRequest({ requestId: id, status: "ACCEPTED" });
+			if (res.data.status == "ACCEPTED")
+				toast.success("Friend request accepted successfully!");
 		} catch (err) {
 			console.error("Error accepting request:", err);
 			toast.error("Failed to accept friend request. Please try again.");
@@ -45,15 +47,12 @@ export default function FriendRequests() {
 			) : (
 				<>
 					{requests.slice(0, 4).map((user: any) => (
-						<div
-							key={user.sender.id}
-							className="flex justify-between items-center"
-						>
+						<div key={user.id} className="flex justify-between items-center">
 							<span className="text-sm font-medium">{user.sender.name}</span>
 							<MyButton
 								label="Accept"
 								variant="outline"
-								onClick={() => handleAccept(user.sender.id)}
+								onClick={() => handleAccept(user.id)}
 							/>
 						</div>
 					))}
