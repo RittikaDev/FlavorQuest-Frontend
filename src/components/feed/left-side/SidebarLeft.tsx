@@ -2,28 +2,32 @@
 "use client";
 
 import { RxMagicWand } from "react-icons/rx";
-import { selectCurrentToken } from "@/redux/features/auth/authSlice";
-import { useAppSelector } from "@/redux/hooks";
-import { verifyToken } from "@/utils/verifyToken";
 import { DiamondIcon, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import MyButton from "@/components/ui/MyButton/MyButton";
 import Category from "./Category";
+import { useGetMeQuery } from "@/redux/features/auth/authApi";
 
 export default function SidebarLeft() {
 	const router = useRouter();
-	const currentUserToken = useAppSelector(selectCurrentToken);
+	// const currentUserToken = useAppSelector(selectCurrentToken);
 
-	type UserWithRole = {
-		role?: string;
-		[key: string]: any;
-	};
+	// type UserWithRole = {
+	// 	role?: string;
+	// 	[key: string]: any;
+	// };
 
-	const currentUser = currentUserToken
-		? (verifyToken(currentUserToken) as UserWithRole)
-		: null;
+	// const currentUser = currentUserToken
+	// 	? (verifyToken(currentUserToken) as UserWithRole)
+	// 	: null;
 
-	const role = currentUser?.role;
+	// const role = currentUser?.role;
+
+	const { data: getMeResponse } = useGetMeQuery(undefined);
+
+	//   console.log("getMeResponse", getMeResponse);
+	const role = getMeResponse?.data.role;
+	console.log(role);
 
 	const scrollToTop = () => {
 		window.scrollTo({
