@@ -27,7 +27,7 @@ export default function SidebarLeft() {
 
 	//   console.log("getMeResponse", getMeResponse);
 	const role = getMeResponse?.data.role;
-	console.log(role);
+	// console.log(role);
 
 	const scrollToTop = () => {
 		window.scrollTo({

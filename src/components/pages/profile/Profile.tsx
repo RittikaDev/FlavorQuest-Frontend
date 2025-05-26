@@ -24,7 +24,7 @@ export default function Profile() {
 	//   console.log("getMeResponse", getMeResponse);
 	const myData = getMeResponse?.data;
 
-	//   console.log("myData", myData);
+	// console.log("myData", myData);
 
 	if (isLoading || isFetching) <Loading />;
 
@@ -44,7 +44,9 @@ export default function Profile() {
 				<div className="absolute -bottom-16 left-6 w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
 					<Image
 						src={
-							"https://i.pinimg.com/736x/0c/e9/6a/0ce96ac3986e782d7775cd59a70a7d58.jpg"
+							myData?.profilePhoto
+								? myData.profilePhoto
+								: "https://i.pinimg.com/736x/0c/e9/6a/0ce96ac3986e782d7775cd59a70a7d58.jpg"
 						}
 						alt="Profile Avatar"
 						layout="fill"

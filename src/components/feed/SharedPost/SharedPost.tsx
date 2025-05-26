@@ -77,7 +77,7 @@ const SharedPost = () => {
 
 	// API call
 	const { data, isLoading, isFetching } = useGetUserSharesQuery(myData.id);
-	console.log(data);
+	// console.log(data);
 
 	const { data: categoriesResponse, isLoading: isCategoryLoading } =
 		useGetAllCategoriesQuery(undefined);
