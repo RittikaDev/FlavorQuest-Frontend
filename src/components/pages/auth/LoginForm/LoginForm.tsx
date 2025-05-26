@@ -45,7 +45,7 @@ export default function LoginForm() {
 		const defaultData =
 			activeTab === "admin"
 				? { email: "admin@gmail.com", password: "admin123" }
-				: { email: "mike@gmail.com", password: "mike123" };
+				: { email: "mark@gmail.com", password: "mark123" };
 
 		reset(defaultData);
 	}, [activeTab, reset]);
