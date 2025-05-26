@@ -11,8 +11,8 @@ import Swal from "sweetalert2";
 import { signOut } from "next-auth/react";
 
 const baseQuery = fetchBaseQuery({
-	// baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-	baseUrl: "http://localhost:5000/api/v1",
+	baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+	// baseUrl: "http://localhost:5000/api/v1",
 	credentials: "include",
 	prepareHeaders: (headers, { getState }) => {
 		const access_token = (getState() as RootState).auth.access_token;
@@ -109,6 +109,8 @@ export const baseApi = createApi({
 		"posts",
 		"categories",
 		"friend",
+		"group",
+		"share",
 	],
 	endpoints: () => ({}),
 });

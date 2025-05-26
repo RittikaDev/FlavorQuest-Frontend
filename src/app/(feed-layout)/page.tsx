@@ -13,7 +13,7 @@ export default function FeedPage() {
 					content={post.content}
 				/>
 			))} */}
-			<SpotsPage />
+			<SpotsPage isSingleColumn={true} />
 		</div>
 	);
 }

@@ -1,12 +1,12 @@
-import React from 'react';
-import SpotsPage from '@/components/pages/common/spots/SpotsPage';
+import React from "react";
+import SpotsPage from "@/components/pages/common/spots/SpotsPage";
 
 const Spots = () => {
-    return (
-        <div>
-            <SpotsPage />
-        </div>
-    );
+	return (
+		<div>
+			<SpotsPage isSingleColumn={false} />
+		</div>
+	);
 };
 
 export default Spots;

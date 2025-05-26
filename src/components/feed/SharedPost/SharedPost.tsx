@@ -1,42 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// app/spots/page.tsx
-"use client";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FoodSpotCard } from "@/components/shared/FoodSpotCard/FoodSpotCard";
 import FoodSpotCardSkeleton from "@/components/shared/FoodSpotCardSkeleton/FoodSpotCardSkeleton";
 import Loading from "@/components/shared/Loading/Loading";
 import MyContainer from "@/components/shared/MyContainer/MyContainer";
+import { useGetMeQuery } from "@/redux/features/auth/authApi";
 import { useGetAllCategoriesQuery } from "@/redux/features/category/category.api";
-import { useGetAllPostQuery } from "@/redux/features/posts/posts.user.api";
-import { IPost } from "@/types/post.interface";
+import { useGetUserSharesQuery } from "@/redux/features/share/share.api";
 import { Empty, Pagination } from "antd";
-import { ChevronDown, Search } from "lucide-react";
+import { Search, ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-interface SpotsPageProps {
-	isSingleColumn?: boolean;
-}
-
-interface QueryParam {
-	name: string;
-	value: string | number;
-}
-
-const SpotsPage: React.FC<SpotsPageProps> = ({ isSingleColumn }) => {
+const SharedPost = () => {
 	// State management
 	const searchParams = useSearchParams();
 	const categoryFromParams = searchParams.get("category");
-	const [page, setPage] = useState<number>(1);
-	const [pageSize, setPageSize] = useState<number>(10);
-	const [searchQuery, setSearchQuery] = useState<string>("");
-	const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-	const [selectedCategory, setSelectedCategory] = useState<string>(
+	const [page, setPage] = useState(1);
+	const [pageSize, setPageSize] = useState(10);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [priceRange, setPriceRange] = useState([0, 1000]);
+	const [selectedCategory, setSelectedCategory] = useState(
 		categoryFromParams ?? ""
 	);
-	const [sortBy, setSortBy] = useState<string>("");
-	const [objectQuery, setObjectQuery] = useState<QueryParam[]>([]);
-
+	const [sortBy, setSortBy] = useState("");
+	const [objectQuery, setObjectQuery] = useState<
+		{ name: string; value: string | number }[]
+	>([]);
+	console.log("objectQuery", objectQuery);
 	// Initialize query
 	useEffect(() => {
 		setObjectQuery([
@@ -54,7 +44,7 @@ const SpotsPage: React.FC<SpotsPageProps> = ({ isSingleColumn }) => {
 
 	// Update query when search/filter parameters change
 	useEffect(() => {
-		const newQuery: QueryParam[] = [
+		const newQuery: { name: string; value: string | number }[] = [
 			{ name: "page", value: page },
 			{ name: "limit", value: pageSize },
 		];
@@ -80,10 +70,15 @@ const SpotsPage: React.FC<SpotsPageProps> = ({ isSingleColumn }) => {
 		setPage(1);
 	}, [searchQuery, priceRange, selectedCategory, sortBy]);
 
+	const { data: getMeResponse } = useGetMeQuery(undefined);
+
+	//   console.log("getMeResponse", getMeResponse);
+	const myData = getMeResponse?.data;
+
 	// API call
-	const { data, isLoading, isFetching } = useGetAllPostQuery(objectQuery, {
-		refetchOnMountOrArgChange: true,
-	});
+	const { data, isLoading, isFetching } = useGetUserSharesQuery(myData.id);
+	console.log(data);
+
 	const { data: categoriesResponse, isLoading: isCategoryLoading } =
 		useGetAllCategoriesQuery(undefined);
 
@@ -197,21 +192,10 @@ const SpotsPage: React.FC<SpotsPageProps> = ({ isSingleColumn }) => {
 
 			{/* Spots Grid */}
 			<MyContainer className="py-8 md:py-12">
-				{!isLoading && !isFetching && data?.data?.data?.length > 0 ? (
-					// <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-					<div
-						className={`grid ${
-							isSingleColumn
-								? "grid-cols-1"
-								: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-						} gap-6`}
-					>
-						{data?.data?.data?.map((spot: IPost) => (
-							<FoodSpotCard
-								key={spot?.id}
-								spot={spot}
-								// onFavoriteToggle={onFavoriteToggle}
-							/>
+				{!isLoading && !isFetching && data.length > 0 ? (
+					<div className="grid grid-cols-1 gap-6">
+						{data.map((spot: any) => (
+							<FoodSpotCard key={spot?.id} spot={spot.post} />
 						))}
 					</div>
 				) : (
@@ -257,4 +241,4 @@ const SpotsPage: React.FC<SpotsPageProps> = ({ isSingleColumn }) => {
 	);
 };
 
-export default SpotsPage;
+export default SharedPost;
